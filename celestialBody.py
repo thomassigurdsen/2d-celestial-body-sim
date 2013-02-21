@@ -24,14 +24,23 @@ pygame.init()
 
 
 class CelestialBody:
-    def __init__(self, radius, xpos, ypos, color):
-        if DEBUG > 1:
+    def __init__(self, radius, xpos, ypos, color, screen):
+        if DEBUG > 2:
             print("in celBody!")
         self.rad = int(radius)
-        self.pos = int(xpos), int(ypos)
+        self.rect = pygame.Rect((xpos, ypos), (self.rad, self.rad))
         self.color = color
+        if DEBUG > 0:
+            print("size: ", self.rect.size)
+            print("typeof w: ", type(self.rect.width))
+            print("typeof h: ", type(self.rect.height))
+        self.surface = pygame.Surface(screen.subsurface(self.rect))
     # init end
 
     def draw(self, screen):
-        pygame.draw.circle(screen, self.color, self.pos, self.rad)
+        pygame.draw.circle(screen, self.color, self.rect.center, self.rad)
+
+    def update(self):
+        pass
+
 # CelBody end

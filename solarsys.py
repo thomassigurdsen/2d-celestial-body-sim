@@ -34,13 +34,23 @@ def main():
     screen = pygame.display.set_mode(size, pygame.RESIZABLE)
     pygame.display.set_caption('Solar System 2D')
 
-    sun = CelestialBody(60, 120, 100, (240, 15, 15))
+    sun = CelestialBody(60, (width / 2), (height / 2), (240, 15, 15), screen)
+    planetGroup = pygame.sprite.RenderUpdates
+    planets = range(10)
+    for pCnt in range(10):
+        planets[pCnt] = CelestialBody(
+            20, (pCnt),  # * 8) % width,
+                (pCnt),  # * 8) % height,
+                (15, 120, (15 + pCnt * 2) % 255), screen)
+        print("pCnt: ", pCnt)
+    planetGroup.add
 
     running = True
     while running:
         handleEvents()
         screen.fill((15, 15, 15))
         sun.draw(screen)
+        planets.draw(screen)
         if DEBUG > 2:
             print(pygame.time.get_ticks())
         pygame.display.flip()
