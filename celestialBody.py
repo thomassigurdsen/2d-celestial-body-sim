@@ -23,18 +23,19 @@ from utils import DEBUG
 pygame.init()
 
 
-class CelestialBody:
+class CelestialBody(pygame.sprite.Sprite):
     def __init__(self, radius, xpos, ypos, color, screen):
+        pygame.sprite.Sprite.__init__(self)
         if DEBUG > 2:
             print("in celBody!")
         self.rad = int(radius)
         self.rect = pygame.Rect((xpos, ypos), (self.rad, self.rad))
+        self.image = pygame.Surface((self.rad, self.rad))
         self.color = color
-        if DEBUG > 0:
+        if DEBUG > 2:
             print("size: ", self.rect.size)
             print("typeof w: ", type(self.rect.width))
             print("typeof h: ", type(self.rect.height))
-        self.surface = pygame.Surface(screen.subsurface(self.rect))
     # init end
 
     def draw(self, screen):

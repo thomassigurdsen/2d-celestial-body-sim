@@ -19,7 +19,7 @@
 #
 #
 import pygame
-from utils import handleEvents, DEBUG
+from utils import handleEvents, DEBUG, VERBOSE
 from celestialBody import CelestialBody
 pygame.init()
 
@@ -33,27 +33,29 @@ def main():
     # The screen is a pygame surface object.
     screen = pygame.display.set_mode(size, pygame.RESIZABLE)
     pygame.display.set_caption('Solar System 2D')
+    clock = pygame.time.Clock()
 
     sun = CelestialBody(60, (width / 2), (height / 2), (240, 15, 15), screen)
-    planetGroup = pygame.sprite.RenderUpdates
-    planets = range(10)
+    planets = []
     for pCnt in range(10):
-        planets[pCnt] = CelestialBody(
+        planets.append(CelestialBody(
             20, (pCnt),  # * 8) % width,
                 (pCnt),  # * 8) % height,
-                (15, 120, (15 + pCnt * 2) % 255), screen)
-        print("pCnt: ", pCnt)
-    planetGroup.add
+                (15, 120, (15 + pCnt * 2) % 255), screen))
+        if DEBUG > 2:
+            print("pCnt: ", pCnt)
 
     running = True
     while running:
         handleEvents()
         screen.fill((15, 15, 15))
         sun.draw(screen)
-        planets.draw(screen)
         if DEBUG > 2:
-            print(pygame.time.get_ticks())
+            print("get_ticks: ", pygame.time.get_ticks())
         pygame.display.flip()
+        clock.tick(120)
+        if VERBOSE > 2:
+            print("get_time: ", clock.get_time())
 
 # Main end
 
