@@ -21,6 +21,7 @@
 import pygame
 from utils import handleEvents, DEBUG, VERBOSE
 from celestialBody import CelestialBody
+from vector2 import Vector2
 pygame.init()
 
 
@@ -29,6 +30,7 @@ def main():
     width = 1024
     height = 768
     size = width, height
+    numPlanets = 1
 
     # The screen is a pygame surface object.
     screen = pygame.display.set_mode(size, pygame.RESIZABLE)
@@ -36,22 +38,26 @@ def main():
     clock = pygame.time.Clock()
 
     sun = CelestialBody(60, (width / 2), (height / 2), (240, 15, 15), screen)
+    # These should not be hardcoded, would be better as lists.
+    # Maybe they would fit better inside each celBody?
+    speed = 10
+    orbit = Vector2(100, 100)
+
     planets = []
-    for pCnt in range(10):
+    for pCnt in range(numPlanets):
         planets.append(CelestialBody(
-            20, (pCnt),  # * 8) % width,
-                (pCnt),  # * 8) % height,
+            20, (pCnt * 8) % width,
+                (pCnt * 8) % height,
                 (15, 120, (15 + pCnt * 2) % 255), screen))
         if DEBUG > 2:
             print("pCnt: ", pCnt)
 
-    running = True
-    while running:
+    while True:
         handleEvents()
         screen.fill((15, 15, 15))
         sun.draw(screen)
         for planet in planets:
-            planet.update()
+            planet.update(orbit, speed)
             planet.draw(screen)
         if DEBUG > 2:
             print("get_ticks: ", pygame.time.get_ticks())
