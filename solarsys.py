@@ -50,12 +50,15 @@ def main():
         handleEvents()
         screen.fill((15, 15, 15))
         sun.draw(screen)
+        for planet in planets:
+            planet.update()
+            planet.draw(screen)
         if DEBUG > 2:
             print("get_ticks: ", pygame.time.get_ticks())
         pygame.display.flip()
         clock.tick(120)
         if VERBOSE > 2:
-            print("get_time: ", clock.get_time())
+            print("FPS: ", clock.get_fps())
 
 # Main end
 

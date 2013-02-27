@@ -22,7 +22,7 @@ import pygame
 from pygame.locals import QUIT, KEYDOWN, K_ESCAPE
 import sys
 pygame.init()
-DEBUG = int(1)
+DEBUG = int(2)
 VERBOSE = int(2)
 
 
