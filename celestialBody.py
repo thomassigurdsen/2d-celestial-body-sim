@@ -43,7 +43,7 @@ class CelestialBody(pygame.sprite.Sprite):
         if DEBUG > 2:
             print("Position X,Y: ", self.rect.center)
 
-    def update(self):
+    def update(self, vec, spd):
         self.rect.move_ip((self.rect.centerx), (self.rect.centery))
 
 # CelBody end
